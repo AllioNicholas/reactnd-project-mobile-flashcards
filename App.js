@@ -1,5 +1,29 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { View, Platform } from 'react-native';
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
+
+import DeckList from './components/DeckList'
+import NewDeck from './components/NewDeck'
+import NewCard from './components/NewCard'
+
+const RouteConfig = {
+  Decks: {
+    screen: DeckList,
+    navigationOptions: {
+      tabBarLabel: 'Decks'
+    }
+  },
+  NewDeck: {
+    screen: NewDeck,
+    navigationOptions: {
+      tabBarLabel: 'New Deck'
+    }
+  }
+}
+
+const MainNavigator = createStackNavigator({
+
+})
 
 export default class App extends React.Component {
   render() {
@@ -12,12 +36,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
