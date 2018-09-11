@@ -1,6 +1,9 @@
 import React from 'react';
 import { View, Platform } from 'react-native';
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducer from './reducers'
 
 import DeckList from './components/DeckList'
 import NewDeck from './components/NewDeck'
@@ -33,11 +36,15 @@ const MainNavigator = createStackNavigator({
 })
 
 export default class App extends React.Component {
+  store = createStore(reducer)
+
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <MainNavigator />
-      </View>
+      <Provider store={this.store}>
+        <View style={{ flex: 1 }}>
+          <MainNavigator />
+        </View>
+      </Provider>
     );
   }
 }
