@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, Text, StyleSheet } from 'react-native'
+import { FlatList, View, Text, StyleSheet } from 'react-native'
 import { receiveDecks } from '../actions'
 import { getAllDecks } from '../utils/deckAPI'
+import DeckListItem from './DeckListItem'
 
 class DeckList extends Component {
   state = {
@@ -17,14 +18,18 @@ class DeckList extends Component {
       .then(() => this.setState(() => ({ ready: true })))
   }
 
+  renderItem = ({ item }) => {
+    return <DeckListItem {...item} />
+  }
+
   render() {
-    const decks = this.props
+    const { decks } = this.props
+
     return (
-      <View>
-        <Text>
-          {JSON.stringify(decks)}
-        </Text>
-      </View>
+      <FlatList
+      data={Object.values(decks)}
+      renderItem={this.renderItem}
+      keyExtractor={(item, index) => index.toString()} />
     )
   }
 }
