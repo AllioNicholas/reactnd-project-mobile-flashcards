@@ -12,17 +12,18 @@ export function addEntryToDeck({ card, deck }) {
     }))
 }
 
-export function submitDeck({ key, deck }) {
+export function submitDeck({ key, title }) {
   return AsyncStorage.mergeItem(DECKS_STORAGE_KEY,
     JSON.stringify({
       [key]: {
-        title: deck,
+        title,
         questions: []
       }
     }))
 }
 
 export function getAllDecks() {
+  // AsyncStorage.clear()
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)
     .then(JSON.parse)
 }
