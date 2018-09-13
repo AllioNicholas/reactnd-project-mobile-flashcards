@@ -27,10 +27,13 @@ class NewDeck extends Component {
 
   submit = () => {
     const key = Date.now()
-    const title = this.state
+    const { title } = this.state
 
      this.props.dispatch(addDeck({
-       [key]: title
+       [key]: {
+         title,
+         questions: []
+       }
      }))
 
      this.setState(() => ({
@@ -50,6 +53,7 @@ class NewDeck extends Component {
           What is the title of your new deck?
         </Text>
         <TextInput
+          style={styles.inputText}
           onChangeText={(title) => this.setState({title})}
           value={title}
           />
@@ -84,6 +88,10 @@ const styles = StyleSheet.create({
   submitBtnText: {
     fontSize: 22,
     textAlign: 'center',
+  },
+  inputText: {
+    padding: 30,
+    backgroundColor: 'white'
   }
 })
 
