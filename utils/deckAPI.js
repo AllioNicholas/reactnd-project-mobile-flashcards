@@ -2,8 +2,17 @@ import { AsyncStorage } from 'react-native'
 
 const DECKS_STORAGE_KEY = 'com.allio.nicholas.decks'
 
-export function addEntryToDeck({ card, deck }) {
+export function submitCardToDeck({ card, deckId }) {
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY)
+    .then(JSON.parse)
+    .then((decks) => {
+      let deckToUpdate = decks[deckId]
 
+      deckToUpdate.questions.push(card)
+
+      decks[deckId] = deckToUpdate
+      AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(decks))
+    })
 }
 
 
