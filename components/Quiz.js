@@ -47,14 +47,19 @@ class Quiz extends Component {
 
   render() {
     const { deck } = this.props
-    const { showAnswer, currentQuestionIndex, completed } = this.state
+    const { showAnswer, currentQuestionIndex, completed, score } = this.state
 
     return (
         <View style={styles.container}>
           {completed === true
-          ? <View>
-
-          </View>
+          ? <View style={styles.finalScoreContainer}>
+              <Text style={[styles.textStyle, { fontSize: 40, marginBottom: 20 }]}>
+                You scored:
+              </Text>
+              <Text style={[styles.textStyle, { fontSize: 75 }]}>
+                {(score/ deck.questions.length) * 100}%
+              </Text>
+            </View>
           : <View style={styles.textContainer}>
             {showAnswer === true
               ? <Text style={styles.textStyle}>
@@ -66,23 +71,25 @@ class Quiz extends Component {
             }
             </View>
           }
-          <View style={styles.buttonsContainer}>
-            <ActionButton
-              onPress={this.onCorrectAnswer}
-              title='Correct'
-              buttonStyle={{ marginBottom: 10, backgroundColor: 'green' }}
-              textStyle={{ color: 'white'}} />
-            <ActionButton
-              onPress={this.onWrongAnswer}
-              title='Incorrect'
-              buttonStyle={{ marginBottom: 20, backgroundColor: 'red' }}
-              textStyle={{ color: 'white'}} />
+          {completed !== true &&
+            <View style={styles.buttonsContainer}>
               <ActionButton
-                onPress={this.flipCard}
-                title={showAnswer == true ? 'Show question' : 'Show answer'}
-                buttonStyle={{ backgroundColor: 'navy' }}
+                onPress={this.onCorrectAnswer}
+                title='Correct'
+                buttonStyle={{ marginBottom: 10, backgroundColor: 'green' }}
                 textStyle={{ color: 'white'}} />
-            </View>
+              <ActionButton
+                onPress={this.onWrongAnswer}
+                title='Incorrect'
+                buttonStyle={{ marginBottom: 20, backgroundColor: 'red' }}
+                textStyle={{ color: 'white'}} />
+                <ActionButton
+                  onPress={this.flipCard}
+                  title={showAnswer == true ? 'Show question' : 'Show answer'}
+                  buttonStyle={{ backgroundColor: 'navy' }}
+                  textStyle={{ color: 'white'}} />
+              </View>
+            }
         </View>
     )
   }
@@ -99,6 +106,11 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flex: 2
+  },
+  finalScoreContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   textStyle: {
     fontSize: 25,
