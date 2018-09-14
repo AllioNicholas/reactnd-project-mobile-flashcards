@@ -13,22 +13,15 @@ export default function decks (state = {}, action) {
         ...action.deck
       }
     case ADD_CARD_TO_DECK:
-      // const { card } = action
-      // let questions = {}
-      //
-      // if (card.questions !== null) {
-      //   questions = {
-      //
-      //   }
-      // }
-      //
-      // return {
-      //   ...state,
-      //   [action.deck.id] : {
-      //     ...action.deck,
-      //     questions: state[deck.id].questions.concat([action.card])
-      //   }
-      // }
+      const { card, deckId } = action
+
+      return {
+        ...state,
+        [deckId] : {
+          ...state[deckId],
+          questions: state[deckId].questions.concat([card])
+        }
+      }
     default:
       return state
   }
