@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { KeyboardAvoidingView, TextInput, Text, StyleSheet } from 'react-native'
 import { submitCardToDeck } from '../utils/deckAPI'
 import { addCardToDeck } from '../actions'
-import SubmitButton from './SubmitButton'
+import ActionButton from './ActionButton'
 
 
 class NewCard extends Component {
@@ -63,7 +63,7 @@ class NewCard extends Component {
           returnKeyType='done'
           onChangeText={(answer) => this.setState({answer})}
           value={answer} />
-        <SubmitButton onPress={this.submit} disabled={question.length == 0 || answer.length === 0} />
+        <ActionButton onPress={this.submit} disabled={question.length == 0 || answer.length === 0} title='SUBMIT' />
       </KeyboardAvoidingView>
     )
   }

@@ -8,7 +8,7 @@ import { KeyboardAvoidingView,
 } from 'react-native'
 import { submitDeck } from '../utils/deckAPI'
 import { addDeck } from '../actions'
-import SubmitButton from './SubmitButton'
+import ActionButton from './ActionButton'
 
 class NewDeck extends Component {
   state = {
@@ -49,7 +49,7 @@ class NewDeck extends Component {
           returnKeyType='done'
           onChangeText={(title) => this.setState({title})}
           value={title} />
-        <SubmitButton onPress={this.submit} disabled={title.length === 0} />
+        <ActionButton onPress={this.submit} disabled={title.length === 0} title='SUBMIT' />
       </KeyboardAvoidingView>
     )
   }

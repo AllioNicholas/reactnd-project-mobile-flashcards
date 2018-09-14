@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { getDeck } from '../utils/deckAPI'
+import ActionButton from './ActionButton'
 
 class DeckDetail extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -21,21 +22,24 @@ class DeckDetail extends Component {
           <Text style={{ color: 'silver', fontSize: 20 }}>{deck.questions.length} cards</Text>
         </View>
         <View style={styles.buttonsContainer}>
-          <TouchableOpacity
-            style={[styles.actionBtn, { backgroundColor: 'white', borderWidth: .5, borderColor: 'navy' }]}
+          <ActionButton
             onPress={() => this.props.navigation.navigate(
-                      'NewCard',
-                      { deckId: deck.id }
-                    )} >
-            <Text style={[ styles.actionBtnText, { color: 'navy'} ]}>Add Card</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.actionBtn, { backgroundColor: 'navy' }]}
-            onPress={() => this.props.navigation.navigate(
-                      'StartQuiz'
-                    )} >
-            <Text style={[ styles.actionBtnText, { color: 'white'} ]}>Start Quiz</Text>
-          </TouchableOpacity>
+                    'NewCard',
+                    { deckId: deck.id }
+                  )}
+            title='Add Card'
+            buttonStyle={{ marginBottom: 10, backgroundColor: 'white', borderWidth: .5, borderColor: 'navy' }}
+            textStyle={{ color: 'navy'}} />
+
+            <ActionButton
+              onPress={() => this.props.navigation.navigate(
+                        'StartQuiz',
+                        { deckId: deck.id }
+                      )}
+              disabled={deck.questions.length === 0}
+              title='Start Quiz'
+              buttonStyle={{ backgroundColor: 'navy' }}
+              textStyle={{ color: 'white'}} />
         </View>
       </View>
     )
@@ -50,18 +54,6 @@ const styles = StyleSheet.create({
   },
   buttonsContainer: {
     flex: 3
-  },
-  actionBtn: {
-    padding: 10,
-    borderRadius: 7,
-    height: 45,
-    marginLeft: 40,
-    marginRight: 40,
-    marginBottom: 10
-  },
-  actionBtnText: {
-    fontSize: 22,
-    textAlign: 'center',
   },
   titleContainer: {
     flex: 3,
