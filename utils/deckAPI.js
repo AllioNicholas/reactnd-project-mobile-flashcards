@@ -16,6 +16,7 @@ export function submitDeck({ key, title }) {
   return AsyncStorage.mergeItem(DECKS_STORAGE_KEY,
     JSON.stringify({
       [key]: {
+        id: key,
         title,
         questions: []
       }

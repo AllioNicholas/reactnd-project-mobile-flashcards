@@ -31,6 +31,7 @@ class NewDeck extends Component {
 
      this.props.dispatch(addDeck({
        [key]: {
+         id: key,
          title,
          questions: []
        }
