@@ -8,17 +8,7 @@ import { KeyboardAvoidingView,
 } from 'react-native'
 import { submitDeck } from '../utils/deckAPI'
 import { addDeck } from '../actions'
-
-function SubmitButton ({ onPress, ...props }) {
-  return (
-    <TouchableOpacity
-      {...props}
-      onPress={onPress}
-      style={styles.submitBtn}>
-      <Text style={styles.submitBtnText}>SUBMIT</Text>
-    </TouchableOpacity>
-  )
-}
+import SubmitButton from './SubmitButton'
 
 class NewDeck extends Component {
   state = {
@@ -55,6 +45,8 @@ class NewDeck extends Component {
         </Text>
         <TextInput
           style={styles.inputText}
+          placeholder="Title like 'Italian course'"
+          returnKeyType='done'
           onChangeText={(title) => this.setState({title})}
           value={title} />
         <SubmitButton onPress={this.submit} disabled={title.length === 0} />
@@ -73,19 +65,6 @@ const styles = StyleSheet.create({
     color: 'navy',
     fontSize: 35,
     marginBottom: 30
-  },
-  submitBtn: {
-    padding: 10,
-    borderRadius: 7,
-    height: 45,
-    marginLeft: 40,
-    marginRight: 40,
-    backgroundColor: 'navy',
-  },
-  submitBtnText: {
-    fontSize: 22,
-    textAlign: 'center',
-    color: 'white'
   },
   inputText: {
     padding: 20,
