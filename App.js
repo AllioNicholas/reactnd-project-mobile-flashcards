@@ -8,6 +8,8 @@ import reducer from './reducers'
 import DeckList from './components/DeckList'
 import NewDeck from './components/NewDeck'
 import NewCard from './components/NewCard'
+import DeckDetail from './components/DeckDetail'
+import Quiz from './components/Quiz'
 
 const RouteConfigs = {
   Decks: {
@@ -28,11 +30,31 @@ const Tabs = Platform.OS === 'ios'
 ? createBottomTabNavigator(RouteConfigs)
 : createMaterialTopTabNavigator(RouteConfigs)
 
+const DeckDetailNavigator = createStackNavigator(
+  {
+    DeckDetail: {
+      screen: DeckDetail
+    },
+    NewCard: {
+      screen: NewCard
+    },
+    StartQuiz: {
+      screen: Quiz
+    }
+  },
+  {
+    headerMode: 'none',
+    mode: 'modal'
+  }
+)
+
 const MainNavigator = createStackNavigator({
   Home: {
     screen: Tabs
   },
-
+  DeckDetailNavigator: {
+    screen: DeckDetailNavigator
+  }
 })
 
 export default class App extends React.Component {
