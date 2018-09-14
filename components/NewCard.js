@@ -1,16 +1,99 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
+import { KeyboardAvoidingView, TextInput, Text, StyleSheet } from 'react-native'
+import { submitCardToDeck } from '../utils/deckAPI'
+import { addCardToDeck } from '../actions'
+import SubmitButton from './SubmitButton'
+
 
 class NewCard extends Component {
+  state = {
+    question: '',
+    answer: ''
+  }
+
+  submit = () => {
+    const { question, answer } = this.state
+    const { deckId } = this.props
+
+    this.props.dispatch(addCardToDeck({
+      card: {
+        question,
+        answer
+      },
+      deckId
+    }))
+
+    this.setState(() => ({
+      question: '',
+      answer: ''
+    }))
+
+    this.props.navigation.goBack()
+
+    submitCardToDeck({
+      card: {
+        question,
+        answer
+      },
+      deckId
+    })
+
+  }
+
   render() {
+    const { question, answer } = this.state
     return (
-      <View>
-        <Text>
-          NewCard
+      <KeyboardAvoidingView style={styles.container} behavior='padding' enabled>
+        <Text style={styles.headerText}>
+          Question:
         </Text>
-      </View>
+        <TextInput
+          style={styles.inputText}
+          placeholder="Question like 'How do you say `Pizza` in Italian?'"
+          returnKeyType='done'
+          onChangeText={(question) => this.setState({question})}
+          value={question} />
+        <Text style={styles.headerText}>
+          Answer:
+        </Text>
+        <TextInput
+          style={styles.inputText}
+          placeholder="Answer like `Pizza`"
+          returnKeyType='done'
+          onChangeText={(answer) => this.setState({answer})}
+          value={answer} />
+        <SubmitButton onPress={this.submit} disabled={question.length == 0 || answer.length === 0} />
+      </KeyboardAvoidingView>
     )
   }
 }
 
-export default NewCard
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 15
+  },
+  headerText: {
+    color: 'navy',
+    fontSize: 20,
+    marginBottom: 5
+  },
+  inputText: {
+    padding: 20,
+    backgroundColor: 'white',
+    borderColor: 'navy',
+    borderWidth: 0.5,
+    marginBottom: 20
+  }
+})
+
+function mapStateToProps(state, { navigation }) {
+  const { deckId } = navigation.state.params
+
+  return {
+    deckId
+  }
+}
+
+export default connect(mapStateToProps)(NewCard)
