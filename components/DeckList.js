@@ -15,8 +15,8 @@ class DeckList extends Component {
 
   renderItem = ({ item }) => {
     return <DeckListItem onPress={() => this.props.navigation.navigate(
-              'DeckDetailNavigator',
-              { deckId: item.id }
+              'DeckDetail',
+              { deckId: item.id, title: item.title }
             )}
             {...item} />
   }
