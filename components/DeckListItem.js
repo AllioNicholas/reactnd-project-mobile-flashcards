@@ -1,9 +1,9 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { TouchableOpacity, View, Text, StyleSheet } from 'react-native'
 
-export default function DeckListItem ({ title, questions }) {
+export default function DeckListItem ({ title, questions, onPress }) {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity onPress={onPress} style={styles.container}>
       <View style={styles.textContainer}>
         <Text style={styles.titleText}>
           {title}
@@ -13,7 +13,7 @@ export default function DeckListItem ({ title, questions }) {
         </Text>
       </View>
       <View style={{ flex : 1, backgroundColor: 'silver', height: 1 }}></View>
-    </View>
+    </TouchableOpacity>
   )
 }
 
