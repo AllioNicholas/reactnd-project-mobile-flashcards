@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View,
+import { KeyboardAvoidingView,
   Text,
   StyleSheet,
   TextInput,
@@ -10,9 +10,10 @@ import { View,
 import { submitDeck } from '../utils/deckAPI'
 import { addDeck } from '../actions'
 
-function SubmitButton ({ onPress }) {
+function SubmitButton ({ onPress, ...props }) {
   return (
     <TouchableOpacity
+      {...props}
       onPress={onPress}
       style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn }>
       <Text style={styles.submitBtnText}>SUBMIT</Text>
@@ -49,17 +50,16 @@ class NewDeck extends Component {
   render() {
     const { title } = this.state
     return (
-      <View style={styles.container}>
-        <Text>
+      <KeyboardAvoidingView style={styles.container} behavior='padding' enabled>
+        <Text style={styles.titleText}>
           What is the title of your new deck?
         </Text>
         <TextInput
           style={styles.inputText}
           onChangeText={(title) => this.setState({title})}
-          value={title}
-          />
-        <SubmitButton onPress={this.submit} />
-      </View>
+          value={title} />
+        <SubmitButton onPress={this.submit} disabled={title.length === 0} />
+      </KeyboardAvoidingView>
     )
   }
 }
@@ -67,7 +67,13 @@ class NewDeck extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 15
+    padding: 15,
+    justifyContent: 'flex-start'
+  },
+  titleText: {
+    color: 'navy',
+    fontSize: 35,
+    marginBottom: 30
   },
   iosSubmitBtn: {
     padding: 10,
@@ -75,6 +81,7 @@ const styles = StyleSheet.create({
     height: 45,
     marginLeft: 40,
     marginRight: 40,
+    backgroundColor: 'navy',
   },
   AndroidSubmitBtn: {
     padding: 10,
@@ -85,14 +92,19 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'navy'
   },
   submitBtnText: {
     fontSize: 22,
     textAlign: 'center',
+    color: 'white'
   },
   inputText: {
-    padding: 30,
-    backgroundColor: 'white'
+    padding: 20,
+    backgroundColor: 'white',
+    borderColor: 'navy',
+    borderWidth: 0.5,
+    marginBottom: 20
   }
 })
 
