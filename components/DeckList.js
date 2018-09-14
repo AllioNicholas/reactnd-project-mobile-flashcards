@@ -27,7 +27,7 @@ class DeckList extends Component {
 
     return (
       <FlatList
-      data={Object.values(decks)}
+      data={Object.values(decks).sort((a, b) => a.id > b.id)}
       renderItem={this.renderItem}
       keyExtractor={(item, index) => index.toString()} />
     )
