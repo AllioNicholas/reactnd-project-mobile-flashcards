@@ -19,7 +19,7 @@ class DeckDetail extends Component {
       <View style={styles.container}>
         <View style={styles.titleContainer}>
           <Text style={{ fontWeight: 'bold', color: 'navy', fontSize: 25 }} >{deck.title}</Text>
-          <Text style={{ color: 'silver', fontSize: 20 }}>{deck.questions.length} cards</Text>
+          <Text style={{ color: 'gray', fontSize: 20 }}>{deck.questions.length} cards</Text>
         </View>
         <View style={styles.buttonsContainer}>
           <ActionButton
