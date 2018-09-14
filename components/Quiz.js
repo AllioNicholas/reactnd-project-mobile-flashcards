@@ -48,6 +48,7 @@ class Quiz extends Component {
   render() {
     const { deck } = this.props
     const { showAnswer, currentQuestionIndex, completed, score } = this.state
+    const percScore = (score/ deck.questions.length) * 100
 
     return (
         <View style={styles.container}>
@@ -57,7 +58,10 @@ class Quiz extends Component {
                 You scored:
               </Text>
               <Text style={[styles.textStyle, { fontSize: 75 }]}>
-                {(score/ deck.questions.length) * 100}%
+                {percScore}%
+              </Text>
+              <Text style={[styles.textStyle, { fontSize: 75 }]}>
+                {percScore > 60 ? '🎉' : percScore > 30 ? '👍' : '👎'}
               </Text>
             </View>
           : <View style={styles.textContainer}>
