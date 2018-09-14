@@ -6,20 +6,19 @@ import { getAllDecks } from '../utils/deckAPI'
 import DeckListItem from './DeckListItem'
 
 class DeckList extends Component {
-  state = {
-    ready: false
-  }
-
   componentDidMount() {
       const { dispatch } = this.props
 
       getAllDecks()
       .then((decks) => dispatch(receiveDecks(decks)))
-      .then(() => this.setState(() => ({ ready: true })))
   }
 
   renderItem = ({ item }) => {
-    return <DeckListItem {...item} />
+    return <DeckListItem onPress={() => this.props.navigation.navigate(
+              'DeckDetailNavigator',
+              { deckId: item.id }
+            )}
+            {...item} />
   }
 
   render() {
