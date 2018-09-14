@@ -4,8 +4,7 @@ import { KeyboardAvoidingView,
   Text,
   StyleSheet,
   TextInput,
-  TouchableOpacity,
-  Platform
+  TouchableOpacity
 } from 'react-native'
 import { submitDeck } from '../utils/deckAPI'
 import { addDeck } from '../actions'
@@ -15,7 +14,7 @@ function SubmitButton ({ onPress, ...props }) {
     <TouchableOpacity
       {...props}
       onPress={onPress}
-      style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn }>
+      style={styles.submitBtn}>
       <Text style={styles.submitBtnText}>SUBMIT</Text>
     </TouchableOpacity>
   )
@@ -75,24 +74,13 @@ const styles = StyleSheet.create({
     fontSize: 35,
     marginBottom: 30
   },
-  iosSubmitBtn: {
+  submitBtn: {
     padding: 10,
     borderRadius: 7,
     height: 45,
     marginLeft: 40,
     marginRight: 40,
     backgroundColor: 'navy',
-  },
-  AndroidSubmitBtn: {
-    padding: 10,
-    paddingLeft: 30,
-    paddingRight: 30,
-    height: 45,
-    borderRadius: 2,
-    alignSelf: 'flex-end',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'navy'
   },
   submitBtnText: {
     fontSize: 22,
