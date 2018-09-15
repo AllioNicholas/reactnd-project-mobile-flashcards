@@ -48,6 +48,7 @@ class Quiz extends Component {
   render() {
     const { deck } = this.props
     const { showAnswer, currentQuestionIndex, completed, score } = this.state
+    const { question, answer } = deck.questions[currentQuestionIndex]
     const percScore = (score/ deck.questions.length) * 100
 
     return (
@@ -64,14 +65,21 @@ class Quiz extends Component {
                 {percScore > 60 ? '🎉' : percScore > 30 ? '👍' : '👎'}
               </Text>
             </View>
-          : <View style={styles.textContainer}>
+          : <View style={styles.cardContainer}>
+              <Text style={styles.textStyle}>
+                Question {currentQuestionIndex+1} of {deck.questions.length}
+              </Text>
             {showAnswer === true
-              ? <Text style={styles.textStyle}>
-                  Answer
-                </Text>
-                : <Text style={styles.textStyle}>
-                    Question {currentQuestionIndex+1} of {deck.questions.length}
+              ? <View style={styles.card}>
+                  <Text style={styles.cardText}>
+                    {answer}
                   </Text>
+                </View>
+              : <View style={styles.card}>
+                  <Text style={styles.cardText}>
+                    {question}
+                  </Text>
+                </View>
             }
             </View>
           }
@@ -106,9 +114,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   buttonsContainer: {
-    flex: 3
+    flex: 1
   },
-  textContainer: {
+  cardContainer: {
     flex: 2
   },
   finalScoreContainer: {
@@ -120,6 +128,28 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: 'navy',
     textAlign: 'center'
+  },
+  card: {
+    flex: 1,
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: 'navy',
+    padding: 20,
+    marginLeft: 30,
+    marginRight: 30,
+    marginBottom: 20,
+    marginTop: 20,
+    borderRadius: 7,
+    shadowOpacity: 0.75,
+    shadowRadius: 5,
+    shadowColor: 'gray',
+    shadowOffset: {
+      height: 0,
+      width: 0
+    }
+  },
+  cardText: {
+    
   }
 })
 
