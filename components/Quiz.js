@@ -48,7 +48,7 @@ class Quiz extends Component {
   render() {
     const { deck } = this.props
     const { showAnswer, currentQuestionIndex, completed, score } = this.state
-    const percScore = (score/ deck.questions.length) * 100
+    const percScore = ((score/ deck.questions.length) * 100)
 
     if (completed === true) {
       return (
@@ -149,10 +149,14 @@ const styles = StyleSheet.create({
     shadowOffset: {
       height: 0,
       width: 0
-    }
+    },
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   cardText: {
-
+    fontSize: 30,
+    textAlign: 'center',
+    color: 'navy'
   }
 })
 
