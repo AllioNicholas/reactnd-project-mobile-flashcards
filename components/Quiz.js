@@ -48,27 +48,33 @@ class Quiz extends Component {
   render() {
     const { deck } = this.props
     const { showAnswer, currentQuestionIndex, completed, score } = this.state
-    const { question, answer } = deck.questions[currentQuestionIndex]
     const percScore = (score/ deck.questions.length) * 100
+
+    if (completed === true) {
+      return (
+        <View style={styles.finalScoreContainer}>
+            <Text style={[styles.textStyle, { fontSize: 40, marginBottom: 20 }]}>
+              You scored:
+            </Text>
+            <Text style={[styles.textStyle, { fontSize: 75 }]}>
+              {percScore}%
+            </Text>
+            <Text style={[styles.textStyle, { fontSize: 75 }]}>
+              {percScore > 60 ? '🎉' : percScore > 30 ? '👍' : '👎'}
+            </Text>
+          </View>
+      )
+    }
+
+
+    const { question, answer } = deck.questions[currentQuestionIndex] !== undefined ? deck.questions[currentQuestionIndex] : {}
 
     return (
         <View style={styles.container}>
-          {completed === true
-          ? <View style={styles.finalScoreContainer}>
-              <Text style={[styles.textStyle, { fontSize: 40, marginBottom: 20 }]}>
-                You scored:
-              </Text>
-              <Text style={[styles.textStyle, { fontSize: 75 }]}>
-                {percScore}%
-              </Text>
-              <Text style={[styles.textStyle, { fontSize: 75 }]}>
-                {percScore > 60 ? '🎉' : percScore > 30 ? '👍' : '👎'}
-              </Text>
-            </View>
-          : <View style={styles.cardContainer}>
-              <Text style={styles.textStyle}>
-                Question {currentQuestionIndex+1} of {deck.questions.length}
-              </Text>
+          <View style={styles.cardContainer}>
+            <Text style={styles.textStyle}>
+              Question {currentQuestionIndex+1} of {deck.questions.length}
+            </Text>
             {showAnswer === true
               ? <View style={styles.card}>
                   <Text style={styles.cardText}>
@@ -82,8 +88,6 @@ class Quiz extends Component {
                 </View>
             }
             </View>
-          }
-          {completed !== true &&
             <View style={styles.buttonsContainer}>
               <ActionButton
                 onPress={this.onCorrectAnswer}
@@ -95,13 +99,12 @@ class Quiz extends Component {
                 title='Incorrect'
                 buttonStyle={{ marginBottom: 20, backgroundColor: 'red' }}
                 textStyle={{ color: 'white'}} />
-                <ActionButton
-                  onPress={this.flipCard}
-                  title={showAnswer == true ? 'Show question' : 'Show answer'}
-                  buttonStyle={{ backgroundColor: 'navy' }}
-                  textStyle={{ color: 'white'}} />
-              </View>
-            }
+              <ActionButton
+                onPress={this.flipCard}
+                title={showAnswer == true ? 'Show question' : 'Show answer'}
+                buttonStyle={{ backgroundColor: 'navy' }}
+                textStyle={{ color: 'white'}} />
+            </View>
         </View>
     )
   }
@@ -149,7 +152,7 @@ const styles = StyleSheet.create({
     }
   },
   cardText: {
-    
+
   }
 })
 
