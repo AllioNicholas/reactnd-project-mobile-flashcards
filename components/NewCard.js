@@ -50,7 +50,7 @@ class NewCard extends Component {
         </Text>
         <TextInput
           style={styles.inputText}
-          placeholder="Question like 'How do you say `Pizza` in Italian?'"
+          placeholder="Question like 'How do you say `Pizza`?'"
           returnKeyType='done'
           onChangeText={(question) => this.setState({question})}
           value={question} />
