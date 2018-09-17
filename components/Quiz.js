@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Animated } from 'react-native'
 import { connect } from 'react-redux'
 import ActionButton from './ActionButton'
 
@@ -8,7 +8,9 @@ class Quiz extends Component {
     currentQuestionIndex: 0,
     score: 0,
     showAnswer: false,
-    completed: false
+    completed: false,
+    squeezValue: new Animated.Value(1),
+    animatedAlpha: new Animated.Value(1)
   }
 
   onCorrectAnswer = () => {
@@ -38,16 +40,33 @@ class Quiz extends Component {
   }
 
   flipCard = () => {
+    const { squeezValue, animatedAlpha } = this.state
+    Animated.sequence([
+        Animated.timing(animatedAlpha, { toValue: 0.0, duration: 0}),
+        Animated.timing(squeezValue, { toValue: 0.04, duration: 200}),
+        Animated.timing(animatedAlpha, { toValue: 1.0, duration: 0}),
+        Animated.timing(squeezValue, { toValue: 1.0, duration: 200}),
+        Animated.spring(squeezValue, { toValue: 1, friction: 4})
+    ]).start()
+
     this.setState((prevState) => ({
       ...prevState,
       showAnswer: !prevState.showAnswer
     }))
   }
 
+  restartQuiz = () => {
+    this.setState(() => ({
+        currentQuestionIndex: 0,
+        score: 0,
+        showAnswer: false,
+        completed: false
+    }))
+  }
 
   render() {
     const { deck } = this.props
-    const { showAnswer, currentQuestionIndex, completed, score } = this.state
+    const { showAnswer, currentQuestionIndex, completed, score, squeezValue, animatedAlpha } = this.state
     const percScore = ((score/ deck.questions.length) * 100).toFixed()
 
     if (completed === true) {
@@ -62,6 +81,11 @@ class Quiz extends Component {
             <Text style={[styles.textStyle, { fontSize: 75 }]}>
               {percScore > 60 ? '🎉' : percScore > 30 ? '👍' : '👎'}
             </Text>
+            <ActionButton
+              onPress={this.restartQuiz}
+              title='Restart quiz'
+              buttonStyle={{ marginBottom: 10, backgroundColor: 'navy' }}
+              textStyle={{ color: 'white'}} />
           </View>
       )
     }
@@ -76,16 +100,16 @@ class Quiz extends Component {
               Question {currentQuestionIndex+1} of {deck.questions.length}
             </Text>
             {showAnswer === true
-              ? <View style={styles.card}>
-                  <Text style={styles.cardText}>
+              ? <Animated.View style={[styles.card, { transform : [{scale: squeezValue}]}]}>
+                  <Animated.Text style={[styles.cardText, { opacity: animatedAlpha }]}>
                     {answer}
-                  </Text>
-                </View>
-              : <View style={styles.card}>
-                  <Text style={styles.cardText}>
+                  </Animated.Text>
+                </Animated.View>
+              : <Animated.View style={[styles.card, { transform : [{scale: squeezValue}]}]}>
+                  <Animated.Text style={[styles.cardText, { opacity: animatedAlpha }]}>
                     {question}
-                  </Text>
-                </View>
+                  </Animated.Text>
+                </Animated.View>
             }
             </View>
             <View style={styles.buttonsContainer}>
