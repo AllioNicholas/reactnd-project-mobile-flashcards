@@ -64,6 +64,10 @@ class Quiz extends Component {
     }))
   }
 
+  backToDeck = () => {
+    this.props.navigation.goBack()
+  }
+
   render() {
     const { deck } = this.props
     const { showAnswer, currentQuestionIndex, completed, score, squeezValue, animatedAlpha } = this.state
@@ -72,6 +76,7 @@ class Quiz extends Component {
     if (completed === true) {
       return (
         <View style={styles.finalScoreContainer}>
+          <View style={styles.scoreTextContainer}>
             <Text style={[styles.textStyle, { fontSize: 40, marginBottom: 20 }]}>
               You scored:
             </Text>
@@ -81,12 +86,20 @@ class Quiz extends Component {
             <Text style={[styles.textStyle, { fontSize: 75 }]}>
               {percScore > 60 ? '🎉' : percScore > 30 ? '👍' : '👎'}
             </Text>
+          </View>
+          <View style={styles.buttonsContainer}>
             <ActionButton
               onPress={this.restartQuiz}
               title='Restart quiz'
               buttonStyle={{ marginBottom: 10, backgroundColor: 'navy' }}
               textStyle={{ color: 'white'}} />
+            <ActionButton
+              onPress={this.backToDeck}
+              title='Back to Deck'
+              buttonStyle={{ backgroundColor: 'navy' }}
+              textStyle={{ color: 'white'}} />
           </View>
+        </View>
       )
     }
 
@@ -148,8 +161,11 @@ const styles = StyleSheet.create({
   },
   finalScoreContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    padding: 15,
+    justifyContent: 'space-between',
+  },
+  scoreTextContainer: {
+    flex: 1
   },
   textStyle: {
     fontSize: 25,
