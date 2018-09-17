@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, Animated } from 'react-native'
 import { connect } from 'react-redux'
 import ActionButton from './ActionButton'
+import { clearLocalNotification, setLocalNotification } from '../utils/notifications'
 
 class Quiz extends Component {
   state = {
@@ -11,6 +12,15 @@ class Quiz extends Component {
     completed: false,
     squeezValue: new Animated.Value(1),
     animatedAlpha: new Animated.Value(1)
+  }
+
+  componentDidUpdate() {
+    const { completed } = this.state
+    
+    if (completed) {
+      clearLocalNotification()
+        .then(setLocalNotification)
+    }
   }
 
   onCorrectAnswer = () => {
