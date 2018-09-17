@@ -63,7 +63,7 @@ class NewCard extends Component {
           returnKeyType='done'
           onChangeText={(answer) => this.setState({answer})}
           value={answer} />
-        <ActionButton onPress={this.submit} disabled={question.length == 0 || answer.length === 0} title='SUBMIT' />
+        <ActionButton onPress={this.submit} disabled={question.length == 0 || answer.length === 0} title='Create Card' />
       </KeyboardAvoidingView>
     )
   }
