@@ -48,7 +48,7 @@ class Quiz extends Component {
   render() {
     const { deck } = this.props
     const { showAnswer, currentQuestionIndex, completed, score } = this.state
-    const percScore = ((score/ deck.questions.length) * 100)
+    const percScore = ((score/ deck.questions.length) * 100).toFixed()
 
     if (completed === true) {
       return (
