@@ -31,7 +31,10 @@ class NewDeck extends Component {
        title: ''
      }))
 
-     this.props.navigation.goBack()
+     this.props.navigation.navigate(
+               'DeckDetail',
+               { deckId: key, title: title }
+             )
 
      submitDeck({ key, title })
   }
