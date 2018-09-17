@@ -2,5 +2,15 @@
   "expo": {
     "sdkVersion": "27.0.0",
     "orientation": "portrait",
+    "name": "LearnCard",
+    "description": "Learn in a fun way!",
+    "slug": "learncard",
+    "version": "1.0",
+    "ios": {
+      "bundleIdentifier": "com.allio.nicholas.learncard"
+    },
+    "android": {
+      "package": "com.allio.nicholas.learncard"
+    }
   }
 }
