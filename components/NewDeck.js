@@ -52,7 +52,12 @@ class NewDeck extends Component {
           returnKeyType='done'
           onChangeText={(title) => this.setState({title})}
           value={title} />
-        <ActionButton onPress={this.submit} disabled={title.length === 0} title='Create Deck' />
+        <ActionButton
+          onPress={this.submit}
+          disabled={title.length === 0}
+          title='Create Deck'
+          buttonStyle={{ backgroundColor: 'navy' }}
+          textStyle={{ color: 'white'}} />
       </KeyboardAvoidingView>
     )
   }

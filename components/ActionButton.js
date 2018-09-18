@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   AndroidBtn: {
-    backgroundColor: 'white',
+    backgroundColor: 'navy',
     padding: 10,
     paddingLeft: 30,
     paddingRight: 30,
